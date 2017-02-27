@@ -49,6 +49,7 @@ public class FYP {
         int count= 0;
         do{
                 RateLimitStatus status = twitter.getRateLimitStatus("followers").get("/followers/ids");
+//                status.getRemaining();
                 ids=twitter.getFollowersIDs(screenName, cursor);
                 System.out.println("count="+count);
                 count=count+ids.getIDs().length;

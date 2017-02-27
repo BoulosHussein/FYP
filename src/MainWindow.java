@@ -1,5 +1,6 @@
 
 import fyp.DataExtraction.TwitterApplicationCredentials;
+import fyp.DataExtraction.TwitterExtraction;
 import java.awt.List;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
@@ -154,14 +155,8 @@ public class MainWindow extends javax.swing.JFrame {
             for(JTextField text : inputList){
                 keywords.add(text.getText());
             }
-
-//            String all = "" ;
-//            for(String text : keywords){
-//                all= all+"  / "+text;
-//            }
-//            keywordsResult.setText(all);
-//           this.revalidate();
             //START twitter followers extraction;
+            TwitterExtraction extract = new TwitterExtraction (keywords);
             
         }
         else

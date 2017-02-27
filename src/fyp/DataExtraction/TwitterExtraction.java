@@ -26,18 +26,24 @@ import modified_components.RoundButton;
 public class TwitterExtraction{    
    // JFrame home_frame ;
     ArrayList<String> keywords_list= new ArrayList<>();
-    HashMap<Long,ArrayList<Long>> l = new HashMap<>(); //chaque followed aura sa liste de followers;
-    
+    HashMap<Long,ArrayList<Long>> list_followers = new HashMap<>(); //chaque followed aura sa liste de followers;
     static  ArrayList<TwitterApplicationCredentials> list_app = new ArrayList<>();
-    
+    ArrayList<Extraction_thread> runnableThread= new ArrayList<>();
+    ArrayList<Thread> threadList= new ArrayList<>();
     
     public static void applicationInitialisation(){
-    TwitterApplicationCredentials app = new TwitterApplicationCredentials ("","","","");
-    list_app.add(app);
+    TwitterApplicationCredentials app1 = new TwitterApplicationCredentials ("cYxtEVybhlxh2Oq9bo9hXpebA","va7Le5CL73sZzCmUGLN8ulaQkhBLvS3KEU9cy1kUeHqmzBhWwJ","799227064624803841-bOBepZnuSnl6B8d82S4sTGTyWeWTk9E","p8taDFsbEkXIdHujJ01q3wDSADTgcv86WkXA19tw20P0U");
+    list_app.add(app1);
+    TwitterApplicationCredentials app2 = new TwitterApplicationCredentials("uniKTsNEKd6tapvbgS08C5S3y","kT31lNlC2qdsJY4kqFFMP9ZyUJaYtGTsRoYuW324M1USWI0g17","799227064624803841-dqBHhCdNfX9UZWZlgGsAKuGMqV9vaHB","sySZ11TsZc6NqKoTXeEyrULNufgEK06MLEyrK4gacF4rw");
+    list_app.add(app2);
+    TwitterApplicationCredentials app3 = new TwitterApplicationCredentials("VpNCvZF2zp7ajl7RXcTXyGwP7","pwIN1SpuqHmRHltW6Hq5gblHxZD56ZYF2yCt6mj3qD4UUt6uop","799227064624803841-oTAnwLe029fhFt7AUMnjwMvkdNL1RTR","Dil1HBHEythkQXkHKmwtLiDrWtXoKL9QjrTsFXdUlKOnc");
+    list_app.add(app3);
+    
     }
     
     public TwitterExtraction (ArrayList<String> keywords_list){    
             this.keywords_list = keywords_list;
+            applicationInitialisation();
             try{
                 distributeTasks();
             }
@@ -53,10 +59,31 @@ public class TwitterExtraction{
         {
             for(int i=0; i<keywords_list.size(); ++i)
             {
-                //run a function on different thread, in which we will define the list of applications that it can use, and the keyword to work on; 
-                
+                //run a function osn different thread, in which we will define the list of applications that it can use, and the keyword to work on:
+                int part =  list_app.size()/keywords_list.size();
+                Extraction_thread thread1 = new Extraction_thread(i*part,part,list_app);   
+                Thread a =new Thread(thread1);
+                runnableThread.add(thread1);
+                threadList.add(a);
+                a.start();
+            }
+            //waiting for all threads
+            for(int i=0; i<threadList.size();++i)
+            {
+                threadList.get(i).join();
+            }
+            //all threads had finished their work;
+            for(int j=0;j<runnableThread.size();++j)
+            {
+ //               je prendrais tous les followers trouver par chaque thread et je les metttrai dans la liste principale de ce thread;
+               for (Long key : runnableThread.get(j).followers.keySet()) 
+               {
+                   if(!list_followers.containsKey(key))
+                       list_followers.put(key, runnableThread.get(j).followers.get(key));
+               }
             
             }
+            
         }
         else
         {
