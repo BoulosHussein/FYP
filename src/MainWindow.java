@@ -4,6 +4,7 @@ import fyp.DataExtraction.TwitterExtraction;
 import java.awt.List;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /*
@@ -46,6 +47,8 @@ public class MainWindow extends javax.swing.JFrame {
         inputList.add(jTextField1);
         facebook_radio_button = new javax.swing.JRadioButton();
         twitter_radio_button = new javax.swing.JRadioButton();
+        depthTextField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,6 +95,10 @@ public class MainWindow extends javax.swing.JFrame {
         twitter_radio_button.setSelected(true);
         twitter_radio_button.setText("Twitter");
 
+        depthTextField.setText("3");
+
+        jLabel1.setText("depth");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,19 +109,26 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGap(533, 533, 533)
                         .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(198, 198, 198)
-                                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(91, 91, 91)
+                                .addComponent(twitter_radio_button))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(137, 137, 137)
+                                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(depthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton2)
                                     .addComponent(jButton1)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(twitter_radio_button)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(facebook_radio_button)))))
+                            .addComponent(facebook_radio_button))))
                 .addContainerGap(360, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -128,7 +142,11 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(107, 107, 107)
+                        .addGap(60, 60, 60)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(depthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(27, 27, 27)
                         .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(47, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -156,7 +174,14 @@ public class MainWindow extends javax.swing.JFrame {
                 keywords.add(text.getText());
             }
             //START twitter followers extraction;
-            TwitterExtraction extract = new TwitterExtraction (keywords);
+            if(isNumeric(depthTextField.getText()))
+            {
+                TwitterExtraction extract = new TwitterExtraction (keywords,depthTextField.getText());
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "depth should be a number");
+            }
             
         }
         else
@@ -165,6 +190,19 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+        private static boolean isNumeric(String str)
+        {
+            try
+            {
+              double d = Double.parseDouble(str);
+            }
+            catch(NumberFormatException nfe)
+            {
+              return false;
+            }
+            return true;
+        }
+        
     private void facebook_radio_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facebook_radio_buttonActionPerformed
         // TODO add your handling code here:
         
@@ -216,12 +254,14 @@ public class MainWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField depthTextField;
     private javax.swing.JRadioButton facebook_radio_button;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JButton jButton1;
     ArrayList<JTextField> inputList =new ArrayList<>();
 
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JRadioButton twitter_radio_button;

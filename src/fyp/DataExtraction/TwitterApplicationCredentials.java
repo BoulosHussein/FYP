@@ -5,6 +5,9 @@
  */
 package fyp.DataExtraction;
 
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
+
 /**
  *
  * @author generals
@@ -20,6 +23,20 @@ public class TwitterApplicationCredentials {
         this.consumerSecret=consumerSecret;
         this.token=token;
         this.tokenSecret=tokenSecret;
+    }
+    
+    public twitter4j.Twitter getTwitterConf ()
+    {
+                ConfigurationBuilder cf=new ConfigurationBuilder();
+                cf.setDebugEnabled(true).setOAuthConsumerKey(consumerKey)
+                .setOAuthConsumerSecret(consumerSecret)
+                .setOAuthAccessToken(token)
+                .setOAuthAccessTokenSecret(tokenSecret); 
+            
+                TwitterFactory tf= new TwitterFactory(cf.build());
+                twitter4j.Twitter twitter = tf.getInstance();
+                return twitter;
+    
     }
 
 }
