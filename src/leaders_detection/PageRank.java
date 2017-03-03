@@ -131,7 +131,7 @@ public class PageRank {
                     rankIterated.set(i, ((1.0-beta)/myGraph.getSize())+rankIterated.get(i));
                 }
                 
-                if(this.diffModule(rankIterated, rankVector)<0.02){
+                if(this.diffModule(rankIterated, rankVector)<0.05){
                     iteration = false;
                 }
                 for(int i =0;i<myGraph.getSize();++i){
