@@ -5,7 +5,7 @@ public class Leaders_Detection {
     
     public static void main(String[] args) throws Exception {
         Graph g = new Graph(5);
-        //g.connect(0,1);
+        g.connect(0,1);
         g.connect(0,2);
         g.connect(0,3);
         g.connect(1,0);
