@@ -111,20 +111,25 @@ public class PageRank {
     
     public void index() throws Exception{
             ArrayList<Double> rankIterated = new ArrayList<>();
+            ArrayList<Integer> zeroColumns = new ArrayList<>();
+            for(int i=0;i<myGraph.getSize();++i){
+                if(myGraph.g.get(i).isEmpty()){
+                    zeroColumns.add(i);
+                }
+            }
             boolean iteration = true;
             double beta = 0.8;
             do{
                 rankIterated = this.product(rankVector);
                 
                 for(int i=0;i<rankIterated.size();++i){
-                    double value=0;
-                    if(rankIterated.get(i)==0){
-                        for(int j=0;j<myGraph.getSize();++j){
-                            value += rankVector.get(j)*1.0/myGraph.getSize();
-                        }
-                        rankIterated.set(i,value);
-                    }
                     rankIterated.set(i, beta*rankIterated.get(i));
+                }
+                
+                for(int i=0;i<zeroColumns.size();++i){
+                    for(int j=0;j<rankIterated.size();++j){
+                        rankIterated.set(j, rankIterated.get(j)+rankVector.get(zeroColumns.get(i))*1.0/myGraph.getSize());
+                    }
                 }
                 
                 for(int i=0;i<myGraph.getSize();++i){
