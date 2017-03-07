@@ -17,7 +17,7 @@ public class Leaders_Detection {
         g.connect(3,1);
         g.connect(3,0);
         g.connect(3,4);
-        g .connect(4,0);
+        g.connect(4,0);
         g.connect(4,2);
         PageRank rank = new PageRank(g);
         rank.displayMatrix();
