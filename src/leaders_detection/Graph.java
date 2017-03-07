@@ -1,6 +1,7 @@
 package leaders_detection;
 
 import java.util.ArrayList; 
+import java.util.HashMap;
 
 public class Graph {
     int _size; 
@@ -27,4 +28,13 @@ public class Graph {
         degree = g.get(node).size();
         return degree;
     } 
+    
+    /*public void integration(HashMap<Long , ArrayList<Long>> map){
+        for(int i=0;i<map.size();++i){
+            for(int j=0;j<map.values().size();++j){
+            
+            }
+        }
+    }*/
+    
 }
