@@ -1,5 +1,8 @@
 package leaders_detection;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Leaders_Detection {
 
     
@@ -18,11 +21,14 @@ public class Leaders_Detection {
         g.connect(3,0);
         g.connect(3,4);
         g.connect(4,0);
-        g.connect(4,2);
+        
+        
+  
         PageRank rank = new PageRank(g);
-        rank.displayMatrix();
+        System.out.println();
         rank.index();
         rank.displayRank();
+        
     }
     
 }
