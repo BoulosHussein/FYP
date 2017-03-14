@@ -56,6 +56,7 @@ public class PageRank {
                 for(int i =0;i<myGraph.getSize();++i){
                     rankVector.set(i, rankIterated.get(i));
                 }
+                        
                 rankIterated.clear();
             }while(iteration);
     }
