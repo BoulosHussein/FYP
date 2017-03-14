@@ -61,15 +61,25 @@ public class PageRank {
             }while(iteration);
     }
     
-    public void displayRank(){
+    public int displayRank(){
         System.out.println("Rank :");
         double s=0;
+        double max =-1;
+        int indice =0;
         for(int i=0;i<rankVector.size();++i){
+            if(max<rankVector.get(i)){
+                indice = i;
+            }
             s+=rankVector.get(i);
             System.out.print(rankVector.get(i)+" ");
         }
         System.out.println();
         System.out.println("Rank Vector sum :");
         System.out.println(s);
+        
+        
+        //printing max
+        System.out.println("Our leaders is "+max);
+        return indice;
     }
 }
