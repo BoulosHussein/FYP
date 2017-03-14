@@ -44,7 +44,7 @@ public class Graph {
             map.put(attributed.get(key), followers);
         }
         for(Integer key : map.keySet()){
-            for(int i=0;i<map.get(i).size();++i){
+            for(int i=0;i<map.get(key).size();++i){
                 this.connect(map.get(key).get(i),key);
             }
         }
